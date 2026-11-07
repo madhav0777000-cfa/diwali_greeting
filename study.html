@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Diwali - Bhorn Vali Janta</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Festive Playfair Display & Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Poppins:wght@300;400;600;700&family=Rozha+One&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #080314;
+      overflow-x: hidden;
+      color: #fff;
+    }
+    .font-festive {
+      font-family: 'Cinzel Decorative', cursive;
+    }
+    .font-hindi-style {
+      font-family: 'Rozha One', serif;
+    }
+    
+    /* Background Canvas */
+    #fireworksCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* Diya Flame Flicker Animation */
+    @keyframes flicker {
+      0%, 100% {
+        transform: scale(1) rotate(-1deg);
+        filter: drop-shadow(0 0 12px #ff9900) drop-shadow(0 0 25px #ff4500);
+      }
+      25% {
+        transform: scale(1.08, 0.95) rotate(1deg);
+        filter: drop-shadow(0 0 16px #ffae00) drop-shadow(0 0 35px #ff3700);
+      }
+      50% {
+        transform: scale(0.95, 1.1) rotate(-2deg);
+        filter: drop-shadow(0 0 10px #ff8800) drop-shadow(0 0 20px #ff5500);
+      }
+      75% {
+        transform: scale(1.05, 1.02) rotate(2deg);
+        filter: drop-shadow(0 0 18px #ffaa00) drop-shadow(0 0 38px #ff2200);
+      }
+    }
+    .flame-anim {
+      animation: flicker 1.8s infinite ease-in-out alternate;
+      transform-origin: bottom center;
+    }
+
+    /* Golden Shimmer Card Borders */
+    .golden-card {
+      background: linear-gradient(145deg, rgba(35, 15, 60, 0.85), rgba(18, 7, 33, 0.95));
+      border: 1.5px solid rgba(234, 179, 8, 0.4);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45), inset 0 0 12px rgba(250, 204, 21, 0.12);
+      backdrop-filter: blur(8px);
+      transition: all 0.35s ease;
+    }
+    .golden-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(250, 204, 21, 0.9);
+      box-shadow: 0 16px 40px rgba(234, 179, 8, 0.25), inset 0 0 20px rgba(250, 204, 21, 0.25);
+    }
+
+    /* Text Glow Effect */
+    .glow-gold-text {
+      text-shadow: 0 0 15px rgba(250, 204, 21, 0.7), 0 0 30px rgba(234, 88, 12, 0.5);
+    }
+    .glow-diya-glow {
+      box-shadow: 0 0 40px 10px rgba(245, 158, 11, 0.45);
+    }
+
+    /* Custom Floating Garland */
+    .marigold-garland {
+      background: repeating-linear-gradient(
+        90deg,
+        #f59e0b 0px,
+        #f59e0b 20px,
+        #ea580c 20px,
+        #ea580c 35px,
+        #eab308 35px,
+        #eab308 50px
+      );
+      height: 10px;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.6);
+    }
+  </style>
+</head>
+<body class="min-h-screen relative selection:bg-amber-500 selection:text-black">
+
+  <!-- Canvas for Firecrackers & Sparklers -->
+  <canvas id="fireworksCanvas"></canvas>
+
+  <!-- Top Marigold Toran / Garland decoration -->
+  <div class="marigold-garland w-full fixed top-0 left-0 z-40"></div>
+
+  <!-- Main Container -->
+  <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-24">
+
+    <!-- Header Section -->
+    <header class="text-center my-8 relative">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/20 via-yellow-400/20 to-orange-500/20 border border-amber-400/40 text-amber-300 text-xs sm:text-sm font-semibold tracking-wider mb-4 animate-pulse">
+        <span>✨ Shubh Deepawali ✨</span>
+      </div>
+
+      <h1 class="font-festive text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-wider bg-gradient-to-r from-yellow-200 via-amber-400 to-orange-500 bg-clip-text text-transparent glow-gold-text">
+        HAPPY DIWALI
+      </h1>
+
+      <!-- Group Dedicated Title -->
+      <div class="mt-3 flex items-center justify-center gap-3">
+        <span class="text-2xl sm:text-3xl text-amber-400">🪔</span>
+        <h2 class="text-2xl sm:text-4xl font-bold text-white tracking-wide">
+          Bhorn vali janta <span class="inline-block animate-bounce">😂</span>
+        </h2>
+        <span class="text-2xl sm:text-3xl text-amber-400">🪔</span>
+      </div>
+      <p class="text-yellow-200/80 italic text-sm sm:text-base mt-2">
+        "Only study discussions 😭😭✨"
+      </p>
+
+      <!-- Center Diya Display -->
+      <div class="flex justify-center items-center my-6">
+        <div class="relative cursor-pointer group" onclick="burstFireworkAtCenter()">
+          <!-- SVG Glowing Diya -->
+          <svg class="w-24 h-24 sm:w-28 sm:h-28 drop-shadow-2xl transition transform group-hover:scale-110" viewBox="0 0 100 100" fill="none">
+            <!-- Flame -->
+            <path class="flame-anim" d="M50 18 C52 28, 59 36, 50 48 C41 36, 48 28, 50 18 Z" fill="url(#flameGradient)" />
+            <ellipse class="flame-anim" cx="50" cy="40" rx="3.5" ry="6" fill="#FFF9C4" />
+            <!-- Diya Base -->
+            <path d="M22 48 C22 68, 78 68, 78 48 C72 56, 28 56, 22 48 Z" fill="url(#diyaBaseGrad)" stroke="#F59E0B" stroke-width="1.5" />
+            <!-- Ornaments on Diya -->
+            <circle cx="36" cy="54" r="2" fill="#FDE047" />
+            <circle cx="50" cy="56" r="2.5" fill="#FDE047" />
+            <circle cx="64" cy="54" r="2" fill="#FDE047" />
+            <defs>
+              <linearGradient id="flameGradient" x1="50" y1="18" x2="50" y2="48" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#FFFFFF" />
+                <stop offset="25%" stop-color="#FBBF24" />
+                <stop offset="65%" stop-color="#F97316" />
+                <stop offset="100%" stop-color="#DC2626" />
+              </linearGradient>
+              <linearGradient id="diyaBaseGrad" x1="22" y1="48" x2="78" y2="68" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#B45309" />
+                <stop offset="50%" stop-color="#D97706" />
+                <stop offset="100%" stop-color="#78350F" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="text-xs text-amber-300/80 font-medium tracking-wide mt-1">Tap diya to light up!</div>
+        </div>
+      </div>
+
+      <!-- Action Buttons Row -->
+      <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-4 mt-2">
+        <button id="burstBtn" class="flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 font-bold px-5 py-2.5 rounded-full shadow-lg hover:shadow-amber-500/50 transition transform active:scale-95 text-sm sm:text-base border border-amber-300">
+          <span>🎆 Burst Fireworks</span>
+        </button>
+        <button id="soundToggleBtn" class="flex items-center gap-2 bg-purple-900/70 hover:bg-purple-800 text-yellow-300 border border-yellow-500/40 font-medium px-4 py-2.5 rounded-full backdrop-blur-sm transition text-sm sm:text-base">
+          <i data-lucide="volume-2" class="w-4 h-4"></i>
+          <span id="soundLabel">Sound: ON</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Diwali Greeting Heartfelt Card -->
+    <section class="max-w-3xl mx-auto mb-16 px-4">
+      <div class="golden-card rounded-2xl p-6 sm:p-8 text-center relative overflow-hidden">
+        <div class="absolute -top-12 -right-12 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+        <div class="absolute -bottom-12 -left-12 w-32 h-32 bg-orange-500/10 rounded-full blur-2xl pointer-events-none"></div>
+        
+        <h3 class="font-festive text-xl sm:text-2xl text-amber-300 font-bold mb-3">
+          To The Craziest Gang: Bhorn Vali Janta!
+        </h3>
+        <p class="text-stone-300 text-sm sm:text-base leading-relaxed mb-4">
+          May this festival of lights illuminate our lives with endless happiness, top grades without the "only study" stress, crazy memories, and unbreakable bonds! May our group chat keep buzzing with laughs, and may every one of your dreams come true!
+        </p>
+        <div class="text-amber-400 font-medium text-sm">
+          Wishing everyone and their families a joyous, prosperous & sparkling Diwali 2026! 🪔✨
+        </div>
+      </div>
+    </section>
+
+    <!-- Group Main Showcase Section -->
+    <section class="mb-14">
+      <div class="golden-card rounded-3xl p-6 md:p-8 relative">
+        <div class="flex flex-col lg:flex-row items-center gap-8">
+          <!-- Main Group Photo Frame -->
+          <div class="w-full lg:w-1/2 relative group">
+            <div class="relative rounded-2xl overflow-hidden border-2 border-amber-400/70 shadow-2xl bg-slate-900 aspect-video flex items-center justify-center">
+              <img 
+                id="mainGroupImg" 
+                src="WhatsApp Image 2026-11-07 at 11.53.48 PM.jpeg" 
+                alt="Bhorn Vali Janta Squad Photo" 
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                onerror="this.src='https://placehold.co/800x450/230f3c/facc15?text=Bhorn+Vali+Janta+Squad+Photo'"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition"></div>
+              <div class="absolute bottom-3 left-4 right-4 flex justify-between items-center text-white">
+                <div>
+                  <h4 class="font-bold text-lg text-amber-300">Bhorn vali janta</h4>
+                  <p class="text-xs text-stone-300">13 Members strong • Endless Memories</p>
+                </div>
+                <span class="text-2xl">💖</span>
+              </div>
+            </div>
+            <!-- Photo Upload Helper Tooltip -->
+            <label for="groupPhotoInput" class="absolute top-3 right-3 bg-black/60 hover:bg-black/90 text-amber-300 border border-amber-400/50 text-xs px-2.5 py-1.5 rounded-lg cursor-pointer backdrop-blur-md transition flex items-center gap-1.5">
+              <i data-lucide="camera" class="w-3.5 h-3.5"></i> Replace Group Photo
+            </label>
+            <input id="groupPhotoInput" type="file" accept="image/*" class="hidden" onchange="uploadMainPhoto(event)">
+          </div>
+
+          <!-- Group Message / Highlights -->
+          <div class="w-full lg:w-1/2 space-y-4">
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-400/30">
+              #SquadDiwaliVibes
+            </span>
+            <h3 class="text-2xl sm:text-3xl font-bold text-amber-200">
+              The Lifelines of Every Discussion!
+            </h3>
+            <p class="text-stone-300 text-sm leading-relaxed">
+              From claiming it’s strictly <span class="text-amber-300 font-semibold">“Only study discussions 😭😭”</span> to sending thousands of memes, last-minute assignment scrambles, and endless banter — there’s no festival complete without you all.
+            </p>
+            <div class="grid grid-cols-2 gap-3 pt-2">
+              <div class="bg-purple-950/60 p-3 rounded-xl border border-yellow-500/20 text-center">
+                <div class="text-2xl font-bold text-amber-400">13</div>
+                <div class="text-xs text-stone-400">Total Idiots & Gems</div>
+              </div>
+              <div class="bg-purple-950/60 p-3 rounded-xl border border-yellow-500/20 text-center">
+                <div class="text-2xl font-bold text-amber-400">100%</div>
+                <div class="text-xs text-stone-400">Study Talk (Scam)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Individual Friends Gallery Grid -->
+    <section>
+      <div class="text-center mb-8">
+        <h2 class="font-festive text-2xl sm:text-4xl font-bold text-amber-300">
+          ✨ The Janta Members ✨
+        </h2>
+        <p class="text-stone-400 text-sm mt-1">Tap any member card to burst sparkles for them, or click the camera to attach their photo!</p>
+      </div>
+
+      <div id="membersGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <!-- Dynamic Cards Injected via JS -->
+      </div>
+    </section>
+
+    <!-- Footer Greetings & Bottom Diyas -->
+    <footer class="mt-20 pt-8 border-t border-amber-500/30 text-center relative">
+      <div class="flex justify-center items-center gap-6 mb-4">
+        <div class="w-8 h-8 relative flame-anim">🪔</div>
+        <p class="text-amber-200/90 text-sm font-medium">Made with ❤️ for Bhorn vali janta • Diwali 2026</p>
+        <div class="w-8 h-8 relative flame-anim">🪔</div>
+      </div>
+      <p class="text-xs text-stone-500">Wishing peace, light, laughter, and endless good times to everyone.</p>
+    </footer>
+
+  </div>
+
+  <!-- Interactive Canvas Fireworks & Audio Logic -->
+  <script>
+    // ----------------------------------------------------
+    // 1. Members Data Definition (Exact Members from Latest Screenshot)
+    // ----------------------------------------------------
+    const members = [
+      {
+        id: "mani_bro",
+        name: "Nngul (Mani !)",
+        role: "sara din nachta hi rhta hoo",
+        status: "all time masti & dance 😎",
+        avatar: "WhatsApp Image 2026-11-07 at 11.11.29 PM.jpeg",
+        color: "from-amber-500 to-red-600"
+      },
+      {
+        id: "manjot",
+        name: "Manjot ",
+        role: "The Meme King 🤴",
+        status: "full of memes & roasts 😎",
+        avatar: "IMG_3920 (1).PNG",
+        color: "from-blue-500 to-indigo-600"
+      },
+      {
+        id: "amrinder",
+        name: "Amrinder ",
+        role: "parnter in crime 😈",
+        status: "being in her imagination 😎",
+        avatar: "WhatsApp Image 2026-11-07 at 11.41.29 PM (1).jpeg",
+        color: "from-orange-500 to-amber-600"
+      },
+      {
+        id: "arsh",
+        name: "Arsh CR",
+        role: "Class CR 📜",
+        status: "Official Notice Deliverer ✨",
+        avatar: "WhatsApp Image 2026-11-07 at 11.12.02 PM.jpeg",
+        color: "from-emerald-500 to-teal-600"
+      },
+      {
+        id: "simmu",
+        name: "Simmu Ji 😎",
+        role: "crime specialist",
+        status: "available for masti",
+        avatar: "WhatsApp Image 2026-11-07 at 11.41.29 PM.jpeg",
+        color: "from-sky-400 to-blue-600"
+      },
+      {
+        id: "harjas",
+        name: "Harjas",
+        role: "silent killer",
+        status: "always in roast mod",
+        avatar: "WhatsApp Image 2026-11-07 at 11.36.37 PM.jpeg",
+        color: "from-teal-400 to-emerald-600"
+      },
+      {
+        id: "jass",
+        name: "Jass Uni",
+        role: "Campus Legend 🎓",
+        status: "gangster feels 😎",
+        avatar: "WhatsApp Image 2026-11-07 at 11.44.05 PM.jpeg",
+        color: "from-purple-500 to-pink-600"
+      },
+      {
+        id: "kanika",
+        name: "kanika♡(Kannu Don)",
+        role: "The Don 👑",
+        status: "Hukum chalega humara 😎",
+        avatar: "WhatsApp Image 2026-11-07 at 11.41.30 PM.jpeg",
+        color: "from-rose-500 to-pink-600"
+      },
+      {
+        id: "kriti",
+        name: "Kriti 😜",
+        role: "Prankster & Joymaker 🤪",
+        status: "Masti over studies always 💫",
+        avatar: "WhatsApp Image 2026-11-07 at 11.45.04 PM.jpeg",
+        color: "from-yellow-400 to-orange-500"
+      },
+      {
+        id: "medhaj",
+        name: "Medhaj",
+        role: "The Thinker 🧠",
+        status: "Silently watching the chaos ☕",
+        avatar: "WhatsApp Image 2026-11-08 at 12.00.25 AM.jpeg",
+        color: "from-fuchsia-500 to-purple-700"
+      },
+      {
+        id: "ramandeep",
+        name: "Ramandeep",
+        role: "Golden Heart 🪔",
+        status: "Spreading Diwali lights ✨",
+        avatar: "Screenshot 2026-11-07 231039.png",
+        color: "from-amber-400 to-yellow-600"
+      },
+      {
+        id: "riya",
+        name: "Riya",
+        role: "Sunshine Vibes ☀️",
+        status: "Happiness & sweets only 🍬",
+        avatar: "WhatsApp Image 2026-11-07 at 11.30.44 PM.jpeg",
+        color: "from-pink-400 to-rose-500"
+      },
+      {
+        id: "madhav",
+        name: "Madhav",
+        role: "The Host & Code Wizard 🧙‍♂️& radio",
+        status: "Created with love for the gang ❤️",
+        avatar: "WhatsApp Image 2026-11-07 at 11.56.16 PM.jpeg",
+        color: "from-yellow-400 to-amber-600"
+      }
+    ];
+
+    // ----------------------------------------------------
+    // 2. Render Member Cards with LocalStorage Persistence
+    // ----------------------------------------------------
+    const gridEl = document.getElementById('membersGrid');
+    
+    function renderMembers() {
+      gridEl.innerHTML = '';
+      members.forEach((m, idx) => {
+        const savedPhoto = localStorage.getItem(`bvj_photo_${m.id}`) || m.avatar;
+        const card = document.createElement('div');
+        card.className = "golden-card rounded-2xl p-5 flex flex-col items-center text-center relative group cursor-pointer overflow-hidden";
+        card.onclick = (e) => triggerMemberCelebration(e, m.name);
+
+        card.innerHTML = `
+          <div class="relative mb-3">
+            <div class="w-24 h-24 rounded-full p-1 bg-gradient-to-tr ${m.color} shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform duration-300">
+              <img 
+                id="avatar-img-${idx}" 
+                src="${savedPhoto}" 
+                alt="${m.name}" 
+                class="w-full h-full rounded-full object-cover bg-neutral-900"
+                onerror="this.src='https://placehold.co/150x150/1e0e38/facc15?text=${encodeURIComponent(m.name.charAt(0))}'"
+              />
+            </div>
+            <label for="upload-${idx}" class="absolute bottom-0 right-0 p-1.5 bg-neutral-900 border border-amber-400/80 rounded-full text-amber-300 hover:text-white hover:bg-amber-600 transition cursor-pointer text-xs shadow-md" title="Upload Real Photo" onclick="event.stopPropagation();">
+              <i data-lucide="camera" class="w-3.5 h-3.5"></i>
+            </label>
+            <input type="file" id="upload-${idx}" accept="image/*" class="hidden" onchange="changeAvatar(event, ${idx}, '${m.id}')" />
+          </div>
+
+          <h4 class="font-bold text-lg text-yellow-100 group-hover:text-amber-300 transition">${m.name}</h4>
+          <span class="text-xs px-2.5 py-0.5 mt-1 rounded-full bg-amber-400/10 text-amber-300 border border-amber-400/20 font-medium">
+            ${m.role}
+          </span>
+          <p class="text-xs text-stone-300 italic mt-3 line-clamp-2">
+            "${m.status}"
+          </p>
+
+          <button class="mt-4 px-3 py-1 rounded-lg bg-yellow-500/10 hover:bg-yellow-500/30 text-amber-300 text-xs font-semibold border border-yellow-500/30 transition flex items-center gap-1.5">
+            <span>🪔 Light Wish</span>
+          </button>
+        `;
+        gridEl.appendChild(card);
+      });
+      lucide.createIcons();
+    }
+
+    // Replace & Persist Member Avatar
+    window.changeAvatar = function(event, index, memberId) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const result = e.target.result;
+          document.getElementById(`avatar-img-${index}`).src = result;
+          try {
+            localStorage.setItem(`bvj_photo_${memberId}`, result);
+          } catch (err) {
+            console.warn("Storage full or disabled:", err);
+          }
+          playBlastSound();
+          createFireworkExplosion(window.innerWidth / 2, window.innerHeight / 2);
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+
+    // Replace & Persist Main Group Photo
+    window.uploadMainPhoto = function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const result = e.target.result;
+          document.getElementById('mainGroupImg').src = result;
+          try {
+            localStorage.setItem('bvj_main_group_photo', result);
+          } catch (err) {
+            console.warn("Storage full or disabled:", err);
+          }
+          playBlastSound();
+          createFireworkExplosion(window.innerWidth / 2, window.innerHeight * 0.4);
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+
+    // ----------------------------------------------------
+    // 3. Web Audio Synthesizer (Realistic Fireworks & Cracker Sound)
+    // ----------------------------------------------------
+    let soundEnabled = true;
+    let audioCtx = null;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playBlastSound() {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        const bufferSize = audioCtx.sampleRate * 0.5;
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = Math.random() * 2 - 1;
+        }
+
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = buffer;
+
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(800, audioCtx.currentTime);
+        filter.frequency.exponentialRampToValueAtTime(80, audioCtx.currentTime + 0.4);
+
+        const gain = audioCtx.createGain();
+        gain.gain.setValueAtTime(0.7, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.45);
+
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        noise.start();
+        noise.stop(audioCtx.currentTime + 0.5);
+      } catch (e) {
+        console.warn("Audio playback not allowed or failed:", e);
+      }
+    }
+
+    // Toggle Audio
+    document.getElementById('soundToggleBtn').addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      const label = document.getElementById('soundLabel');
+      label.innerText = soundEnabled ? 'Sound: ON' : 'Sound: OFF';
+      if (soundEnabled) initAudio();
+    });
+
+    // ----------------------------------------------------
+    // 4. Fireworks & Sparkles Canvas Animation Engine
+    // ----------------------------------------------------
+    const canvas = document.getElementById('fireworksCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    const colors = ['#FFD700', '#FF5722', '#FF9800', '#FFEB3B', '#E91E63', '#00E676', '#00E5FF', '#FFF'];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 6 + 1.5;
+        this.vx = Math.cos(angle) * speed;
+        this.vy = Math.sin(angle) * speed;
+        this.alpha = 1;
+        this.decay = Math.random() * 0.02 + 0.012;
+        this.radius = Math.random() * 2.8 + 1;
+        this.gravity = 0.05;
+      }
+
+      update() {
+        this.vx *= 0.98;
+        this.vy *= 0.98;
+        this.vy += this.gravity;
+        this.x += this.vx;
+        this.y += this.vy;
+        this.alpha -= this.decay;
+      }
+
+      draw(context) {
+        context.save();
+        context.globalAlpha = Math.max(this.alpha, 0);
+        context.beginPath();
+        context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        context.fillStyle = this.color;
+        context.shadowBlur = 10;
+        context.shadowColor = this.color;
+        context.fill();
+        context.restore();
+      }
+    }
+
+    function createFireworkExplosion(x, y) {
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const count = 50 + Math.floor(Math.random() * 40);
+      for (let i = 0; i < count; i++) {
+        particles.push(new Particle(x, y, color));
+      }
+      playBlastSound();
+    }
+
+    function animateFireworks() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.update();
+        p.draw(ctx);
+        if (p.alpha <= 0) {
+          particles.splice(i, 1);
+        }
+      }
+
+      // Random gentle background sparkles
+      if (Math.random() < 0.03) {
+        const randomX = Math.random() * canvas.width;
+        const randomY = Math.random() * (canvas.height * 0.6);
+        createFireworkExplosion(randomX, randomY);
+      }
+
+      requestAnimationFrame(animateFireworks);
+    }
+
+    // Trigger celebration when a card is clicked
+    function triggerMemberCelebration(e, name) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      createFireworkExplosion(x, y);
+    }
+
+    // Center Diya Click
+    function burstFireworkAtCenter() {
+      createFireworkExplosion(window.innerWidth / 2, window.innerHeight * 0.35);
+    }
+
+    // Burst button action
+    document.getElementById('burstBtn').addEventListener('click', () => {
+      initAudio();
+      for (let i = 0; i < 3; i++) {
+        setTimeout(() => {
+          const x = window.innerWidth * 0.2 + Math.random() * (window.innerWidth * 0.6);
+          const y = window.innerHeight * 0.15 + Math.random() * (window.innerHeight * 0.35);
+          createFireworkExplosion(x, y);
+        }, i * 220);
+      }
+    });
+
+    // Touch & Click screen bursts
+    window.addEventListener('click', (e) => {
+      // Avoid triggering when tapping buttons or uploads
+      if (e.target.closest('button') || e.target.closest('label') || e.target.closest('input')) return;
+      createFireworkExplosion(e.clientX, e.clientY);
+    });
+
+    // Initialize application on window load
+    window.onload = function () {
+      // Restore saved main group photo if available
+      const savedMainPhoto = localStorage.getItem('bvj_main_group_photo');
+      if (savedMainPhoto) {
+        const mainImg = document.getElementById('mainGroupImg');
+        if (mainImg) mainImg.src = savedMainPhoto;
+      }
+
+      renderMembers();
+      lucide.createIcons();
+      animateFireworks();
+
+      // Launch an opening celebration burst
+      setTimeout(() => {
+        createFireworkExplosion(window.innerWidth / 2, window.innerHeight * 0.3);
+      }, 500);
+    };
+  </script>
+</body>
+</html>
